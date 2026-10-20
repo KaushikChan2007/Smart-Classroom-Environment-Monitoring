@@ -1,0 +1,123 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, "Segoe UI", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --color-background: #f6f2e8;
+  --color-card: #fbf8f1;
+  --color-card-border: #e9e3d3;
+  --color-sidebar: rgb(48 62 79 / 91%);
+  --color-sidebar-top: #35475b;
+  --color-sidebar-bottom: #263344;
+  --color-sidebar-active: #435a70;
+  --color-sidebar-edge: rgb(190 216 231 / 24%);
+  --color-sidebar-muted: #c7d3dc;
+  --color-sidebar-glint: rgb(210 232 243 / 13%);
+  --color-mobile-nav: #293746;
+  --color-mobile-nav-active: #435a70;
+  --color-text: #302729;
+  --color-text-secondary: #68585a;
+  --color-maroon: #7a3445;
+  --color-maroon-deep: #572632;
+  --color-navy: #40556c;
+  --color-sky: #79acc5;
+  --color-clay: #e5c1b5;
+  --color-clay-light: #f1ddd3;
+  --color-surface-top: #fffaf4;
+  --color-surface-bottom: #f1e8dc;
+  --color-surface-muted: #f4f0e6;
+  --color-surface-chart: #fbf8f1;
+  --color-chart-grid: #e9e3d6;
+  --color-placeholder: #887b78;
+  --color-surface-border: rgb(255 255 255 / 82%);
+  --color-surface-highlight: rgb(255 255 255 / 88%);
+  --color-temperature: #e4745a;
+  --color-humidity: #5b9bd5;
+  --color-air-quality: #4f9a62;
+  --color-status-warning: #81580e;
+  --color-occupancy: #d9a441;
+  --color-light: #e3b341;
+  --color-noise: #8e7cc3;
+  --color-alert-background: #f2ded7;
+  --color-alert-text: #87394a;
+
+  --radius-card: 18px;
+  --shadow-raised:
+    13px 14px 28px rgb(174 164 143 / 48%),
+    -11px -11px 26px rgb(255 253 246 / 94%),
+    inset 1px 1px 0 rgb(255 255 255 / 66%);
+  --shadow-raised-soft:
+    8px 8px 18px rgb(179 169 147 / 43%),
+    -7px -7px 17px rgb(255 253 246 / 88%),
+    inset 1px 1px 0 rgb(255 255 255 / 50%);
+  --shadow-inset:
+    inset 4px 4px 9px rgb(190 181 162 / 30%),
+    inset -4px -4px 9px rgb(255 253 246 / 78%);
+  --shadow-clay:
+    10px 12px 20px rgb(168 143 127 / 34%),
+    -8px -8px 19px rgb(255 253 246 / 90%),
+    inset 2px 2px 4px rgb(255 255 255 / 82%),
+    inset -2px -3px 5px rgb(159 127 113 / 12%);
+  --shadow-card: var(--shadow-raised-soft);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-background: #202520;
+  --color-card: #2c322c;
+  --color-card-border: #414a40;
+  --color-sidebar: rgb(30 40 53 / 94%);
+  --color-sidebar-top: #273747;
+  --color-sidebar-bottom: #1d2936;
+  --color-sidebar-active: #3b5268;
+  --color-sidebar-edge: rgb(160 195 217 / 23%);
+  --color-sidebar-muted: #b3c2ce;
+  --color-sidebar-glint: rgb(172 211 235 / 11%);
+  --color-mobile-nav: #202d3a;
+  --color-mobile-nav-active: #3b5268;
+  --color-text: #f0eee5;
+  --color-text-secondary: #b0b5a6;
+  --color-maroon: #a95668;
+  --color-maroon-deep: #753948;
+  --color-navy: #8198b0;
+  --color-sky: #84bdd8;
+  --color-air-quality: #92c58f;
+  --color-status-warning: #e3bd6d;
+  --color-clay: #704d4a;
+  --color-clay-light: #523d3b;
+  --color-surface-top: #373b35;
+  --color-surface-bottom: #292e29;
+  --color-surface-muted: #303630;
+  --color-surface-chart: #272d28;
+  --color-chart-grid: #414840;
+  --color-placeholder: #c0bfb1;
+  --color-surface-border: rgb(255 255 255 / 12%);
+  --color-surface-highlight: rgb(255 255 255 / 16%);
+  --color-air-quality: #8fc997;
+  --color-status-warning: #e3bd6d;
+  --color-clay: #704d4a;
+  --color-clay-light: #523d3b;
+  --color-alert-background: #493235;
+  --color-alert-text: #efb7ae;
+
+  --shadow-raised:
+    12px 13px 26px rgb(8 11 9 / 52%),
+    -8px -8px 20px rgb(75 83 74 / 22%),
+    inset 1px 1px 0 rgb(255 255 255 / 5%);
+  --shadow-raised-soft:
+    7px 7px 16px rgb(8 11 9 / 45%),
+    -6px -6px 15px rgb(75 83 74 / 18%),
+    inset 1px 1px 0 rgb(255 255 255 / 4%);
+  --shadow-inset:
+    inset 4px 4px 9px rgb(8 11 9 / 38%),
+    inset -4px -4px 9px rgb(75 83 74 / 16%);
+  --shadow-clay:
+    9px 11px 19px rgb(8 11 9 / 42%),
+    -7px -7px 17px rgb(75 83 74 / 19%),
+    inset 2px 2px 4px rgb(255 255 255 / 6%),
+    inset -2px -3px 5px rgb(8 11 9 / 12%);
+}

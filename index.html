@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="theme-color"
+      content="#f6f2e8"
+    />
+    <meta
+      name="description"
+      content="Monitor classroom environmental conditions and trends."
+    />
+    <title>Smart Classroom | Environment Monitoring</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#overview" aria-label="Smart Classroom overview">
+          <span class="brand-mark" aria-hidden="true">sc</span>
+          <span class="brand-copy">
+            <strong>Smart Classroom</strong>
+            <small>Environment monitoring</small>
+          </span>
+        </a>
+
+        <nav class="primary-nav" aria-label="Pages">
+          <button class="nav-item is-active" type="button" data-page="overview" aria-current="page">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" /></svg>
+            <span>Overview</span>
+          </button>
+          <button class="nav-item" type="button" data-page="live">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M2 12h4l3-8 5 16 3-8h5" /></svg>
+            <span>Live Data</span>
+          </button>
+          <button class="nav-item" type="button" data-page="trends">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 4 3 6-7" /></svg>
+            <span>Trends</span>
+          </button>
+          <button class="nav-item" type="button" data-page="alerts">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></svg>
+            <span>Alerts</span>
+          </button>
+          <button class="nav-item" type="button" data-page="settings">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM4.9 4.9l2.2 1.3a7 7 0 0 1 1.8-.8L9.5 3h5l.6 2.4a7 7 0 0 1 1.8.8l2.2-1.3 3.5 3.5-1.3 2.2a7 7 0 0 1 .8 1.8l2.4.6v5l-2.4.6a7 7 0 0 1-.8 1.8l1.3 2.2-3.5 3.5-2.2-1.3a7 7 0 0 1-1.8.8l-.6 2.4h-5l-.6-2.4a7 7 0 0 1-1.8-.8l-2.2 1.3-3.5-3.5 1.3-2.2a7 7 0 0 1-.8-1.8L1.5 18v-5l2.4-.6a7 7 0 0 1 .8-1.8L3.4 8.4z" transform="translate(1 -1) scale(.92)" /></svg>
+            <span>Settings</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <span class="connection-dot" aria-hidden="true"></span>
+          <span id="room-display">Room 101</span>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="page-header">
+          <div>
+            <p class="page-eyebrow">Classroom environment</p>
+            <h1 id="page-title">Overview</h1>
+            <p class="page-subtitle" id="page-subtitle">A healthier space for better learning.</p>
+          </div>
+          <div class="header-actions">
+            <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+              <svg class="theme-icon theme-icon-moon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 15.5A8.5 8.5 0 0 1 8.5 3.5 8.5 8.5 0 1 0 20.5 15.5Z" /></svg>
+              <svg class="theme-icon theme-icon-sun" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" /></svg>
+              <span class="theme-toggle-label">Dark mode</span>
+            </button>
+            <span class="source-pill" id="source-status" role="status" aria-live="polite" data-state="simulator">
+              <span class="connection-dot" aria-hidden="true"></span>
+              <span id="source-status-label">Simulator</span>
+            </span>
+          </div>
+        </header>
+        <p class="app-notice" id="app-notice" role="status" aria-live="polite" hidden></p>
+
+        <div class="page-stack">
+          <section class="page-panel" data-panel="overview" aria-labelledby="overview-heading">
+            <div class="welcome-card">
+              <div>
+                <p class="eyebrow">Smart Classroom · <span id="overview-room-name">ROOM 101</span></p>
+                <h2 id="overview-heading">Your classroom at a glance</h2>
+                <p>Environmental readings and live trends will appear here.</p>
+              </div>
+              <span class="welcome-icon" aria-hidden="true">✳</span>
+            </div>
+            <div class="metric-grid" aria-label="Current classroom readings">
+              <article class="metric-card" data-metric="temperature">
+                <span class="metric-icon temperature-icon" aria-hidden="true">°</span>
+                <div class="metric-details"><span class="metric-label">Temperature</span><div class="metric-reading"><span class="metric-value">—</span><span class="metric-unit">°C</span></div><span class="metric-status">Connecting</span></div>
+              </article>
+              <article class="metric-card" data-metric="humidity">
+                <span class="metric-icon humidity-icon" aria-hidden="true">◌</span>
+                <div class="metric-details"><span class="metric-label">Humidity</span><div class="metric-reading"><span class="metric-value">—</span><span class="metric-unit">%</span></div><span class="metric-status">Connecting</span></div>
+              </article>
+              <article class="metric-card" data-metric="airQuality">
+                <span class="metric-icon air-quality-icon" aria-hidden="true">✳</span>
+                <div class="metric-details"><span class="metric-label">Air quality <small>est.</small></span><div class="metric-reading"><span class="metric-value">—</span><span class="metric-unit">ppm</span></div><span class="metric-status">Connecting</span></div>
+              </article>
+              <article class="metric-card" data-metric="occupancy">
+                <span class="metric-icon occupancy-icon" aria-hidden="true">♙</span>
+                <div class="metric-details"><span class="metric-label">Occupancy</span><div class="metric-reading"><span class="metric-value">—</span><span class="metric-unit">events</span></div><span class="metric-status">Connecting</span></div>
+              </article>
+              <article class="metric-card" data-metric="light">
+                <span class="metric-icon light-icon" aria-hidden="true">☼</span>
+                <div class="metric-details"><span class="metric-label">Light level <small>est.</small></span><div class="metric-reading"><span class="metric-value">—</span><span class="metric-unit">lux</span></div><span class="metric-status">Connecting</span></div>
+              </article>
+              <article class="metric-card" data-metric="noise">
+                <span class="metric-icon noise-icon" aria-hidden="true">)))</span>
+                <div class="metric-details"><span class="metric-label">Noise level <small>est.</small></span><div class="metric-reading"><span class="metric-value">—</span><span class="metric-unit">dB</span></div><span class="metric-status">Connecting</span></div>
+              </article>
+            </div>
+            <div class="placeholder-card chart-placeholder">
+              <div class="chart-heading">
+                <div><h3>Live Trends</h3><p id="overview-trend-caption">Last 24 hours · relative sensor ranges</p></div>
+                <span class="chart-live"><span class="connection-dot" aria-hidden="true"></span>LIVE</span>
+              </div>
+              <div class="chart-plot"><canvas id="trends-chart" aria-label="Environmental trends over the last 24 hours" role="img"></canvas></div>
+            </div>
+            <div class="alert-placeholder is-clear" id="overview-alert" role="status" aria-live="polite">
+              <span class="alert-symbol" aria-hidden="true">✓</span>
+              <div class="alert-copy"><strong>All conditions look comfortable</strong><p>We’ll let you know if a reading needs attention.</p></div>
+              <button class="alert-action" type="button" data-page="alerts">View alerts <span aria-hidden="true">→</span></button>
+            </div>
+          </section>
+
+          <section class="page-panel" data-panel="live" aria-labelledby="live-heading" hidden>
+            <div class="section-heading"><p class="eyebrow">SENSOR STATUS</p><h2 id="live-heading">Live Data</h2><p>A closer look at the latest classroom readings.</p></div>
+            <div class="live-status-card">
+              <span class="connection-dot" aria-hidden="true"></span>
+              <div><strong id="live-source-title">Connecting to sensor data</strong><p id="live-source-description">Waiting for the first reading.</p></div>
+              <span class="last-updated" id="last-updated">Waiting for first reading</span>
+            </div>
+            <div class="live-grid" id="live-grid"></div>
+            <p class="data-note" id="live-data-note">Waiting for sensor data.</p>
+          </section>
+
+          <section class="page-panel" data-panel="trends" aria-labelledby="trends-heading" hidden>
+            <div class="section-heading"><p class="eyebrow">HISTORY & PATTERNS</p><h2 id="trends-heading">Trends</h2><p>Compare readings over time and spot recurring changes.</p></div>
+            <div class="control-card trends-controls">
+              <label for="trend-metric">Reading</label>
+              <select id="trend-metric">
+                <option value="temperature">Temperature</option>
+                <option value="humidity">Humidity</option>
+                <option value="airQuality">Air quality (estimate)</option>
+                <option value="occupancy">Motion activity</option>
+                <option value="light">Light (estimate)</option>
+                <option value="noise">Noise (estimate)</option>
+              </select>
+              <div class="range-buttons" role="group" aria-label="Trend time range">
+                <button type="button" class="range-button" data-range="1">1h</button>
+                <button type="button" class="range-button" data-range="6">6h</button>
+                <button type="button" class="range-button is-selected" data-range="24" aria-pressed="true">24h</button>
+                <button type="button" class="range-button" data-range="168">7d</button>
+              </div>
+            </div>
+            <div class="summary-grid" id="trend-summary"></div>
+            <div class="placeholder-card chart-placeholder trend-chart-card">
+              <div class="chart-heading"><div><h3 id="trend-chart-title">Temperature</h3><p id="trend-range-caption">Last 24 hours · simulated readings</p></div></div>
+              <div class="chart-plot"><canvas id="detail-trends-chart" aria-label="Selected sensor trend" role="img"></canvas></div>
+            </div>
+          </section>
+
+          <section class="page-panel" data-panel="alerts" aria-labelledby="alerts-heading" hidden>
+            <div class="section-heading"><p class="eyebrow">ATTENTION & ACTION</p><h2 id="alerts-heading">Alerts</h2><p>Review readings that may need a closer look.</p></div>
+            <div class="control-card alerts-controls">
+              <label for="alert-filter">Show</label>
+              <select id="alert-filter"><option value="all">All alerts</option><option value="unacknowledged">Needs review</option><option value="acknowledged">Reviewed</option></select>
+              <button class="secondary-button" id="clear-alerts" type="button">Clear alert history</button>
+            </div>
+            <div class="alert-list" id="alert-list" aria-live="polite"></div>
+          </section>
+
+          <section class="page-panel" data-panel="settings" aria-labelledby="settings-heading" hidden>
+            <div class="section-heading"><p class="eyebrow">ROOM PREFERENCES</p><h2 id="settings-heading">Settings</h2><p>Set this dashboard up for your classroom.</p></div>
+            <form class="settings-form" id="settings-form">
+              <div class="settings-card">
+                <div class="settings-section-heading"><h3>Classroom</h3><p>Give this room a name that is easy to recognize.</p></div>
+                <label class="field-label" for="room-name">Room name</label>
+                <input id="room-name" name="roomName" type="text" maxlength="48" required />
+              </div>
+              <div class="settings-card">
+                <div class="settings-section-heading"><h3>Comfort ranges</h3><p>Set the bounds used for warning statuses. Critical thresholds remain safety defaults.</p></div>
+                <div class="threshold-fields">
+                  <label class="field-label" for="temperature-max">Temperature warning above <span>(°C)</span><input id="temperature-max" name="temperatureMax" type="number" min="21" max="30" step="0.5" required /></label>
+                  <label class="field-label" for="humidity-max">Humidity warning above <span>(%)</span><input id="humidity-max" name="humidityMax" type="number" min="41" max="75" step="1" required /></label>
+                  <label class="field-label" for="air-quality-max">Air quality warning above <span>(estimated ppm)</span><input id="air-quality-max" name="airQualityMax" type="number" min="500" max="1200" step="10" required /></label>
+                  <label class="field-label" for="noise-max">Noise warning above <span>(estimated dB)</span><input id="noise-max" name="noiseMax" type="number" min="40" max="70" step="1" required /></label>
+                </div>
+              </div>
+              <div class="settings-card source-card">
+                <div><h3>Data source</h3><p>Local simulator is active for this demo. Firebase connection can be configured later.</p></div>
+                <span class="source-label"><span class="connection-dot" aria-hidden="true"></span>Simulator</span>
+              </div>
+              <div class="settings-card sound-card">
+                <div class="sound-setting-copy"><h3>Critical alert sound</h3><p>A short beep plays once when a new critical alert appears. Warnings stay silent. After reopening the dashboard, click once to allow browser audio.</p></div>
+                <label class="sound-toggle" for="sound-alerts">
+                  <input id="sound-alerts" name="soundAlerts" type="checkbox" />
+                  <span class="toggle-track" aria-hidden="true"></span>
+                  <span>Sound alerts</span>
+                </label>
+                <div class="sound-actions">
+                  <span id="sound-message" role="status" aria-live="polite">Sound is off</span>
+                  <button class="secondary-button" id="test-sound" type="button">Test beep</button>
+                </div>
+              </div>
+              <div class="settings-actions">
+                <p class="form-message" id="settings-message" role="status" aria-live="polite"></p>
+                <button class="primary-button" type="submit">Save settings</button>
+              </div>
+            </form>
+          </section>
+        </div>
+        <footer class="main-footer">Smart Classroom Environment Monitoring</footer>
+      </main>
+    </div>
+    <noscript>This dashboard needs JavaScript enabled to navigate between pages.</noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
