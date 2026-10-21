@@ -135,6 +135,7 @@ function handleSample(sample) {
 }
 
 function normalizeValue(value, definition) {
+  if (value === null || value === undefined) return null;
   if (typeof value === 'boolean') return value ? 100 : 0;
   const ratio = ((value - definition.min) / (definition.max - definition.min)) * 100;
   return Math.max(0, Math.min(100, ratio));
@@ -268,6 +269,7 @@ function updateChartTheme(chart) {
 }
 
 function formatValue(metric, value) {
+  if (value === null || value === undefined || !Number.isFinite(Number(value))) return 'N/A';
   if (typeof value === 'boolean') {
     if (metric === 'occupancy') return value ? 'Motion' : 'No motion';
     if (metric === 'light') return value ? 'On' : 'Off';
@@ -290,7 +292,7 @@ function displayDefinition(metric, sample) {
 function setMetricLabel(element, metric, sample) {
   const definition = displayDefinition(metric, sample);
   element.textContent = definition.label;
-  if (typeof sample[metric] !== 'boolean' && ['airQuality', 'light', 'noise'].includes(metric)) {
+  if (typeof sample[metric] === 'number' && ['airQuality', 'light', 'noise'].includes(metric)) {
     const estimated = document.createElement('small');
     estimated.textContent = 'est.';
     element.append(document.createTextNode(' '), estimated);
@@ -298,6 +300,7 @@ function setMetricLabel(element, metric, sample) {
 }
 
 function cardUnit(metric, sample) {
+  if (sample[metric] === null || sample[metric] === undefined) return '';
   if (typeof sample[metric] === 'boolean') return '';
   return { temperature: '°C', humidity: '%', airQuality: 'ppm', occupancy: 'events', light: 'lux', noise: 'dB' }[metric];
 }
@@ -386,6 +389,9 @@ function activeThresholds() {
 }
 
 function statusFor(metric, value, readings) {
+  if (value === null || value === undefined || (typeof value === 'number' && !Number.isFinite(value))) {
+    return { label: 'Unavailable', severity: null };
+  }
   if (typeof value === 'boolean') return { label: 'Live', severity: null };
   return getMetricStatus(metric, value, readings, activeThresholds());
 }
@@ -439,10 +445,12 @@ function renderLiveReadings(sample) {
     const statusClass = severity ? `is-${severity}` : `is-${label.toLowerCase()}`;
     const percentage = typeof sample[metric] === 'boolean'
       ? (sample[metric] ? 100 : 0)
-      : Math.max(4, Math.min(100, ((sample[metric] - definition.min) / (definition.max - definition.min)) * 100));
+      : sample[metric] === null || sample[metric] === undefined
+        ? 0
+        : Math.max(4, Math.min(100, ((sample[metric] - definition.min) / (definition.max - definition.min)) * 100));
     return `<article class="live-reading-card">
-      <div class="live-reading-heading"><h3>${display.label}${typeof sample[metric] !== 'boolean' && ['airQuality', 'light', 'noise'].includes(metric) ? ' <small>est.</small>' : ''}</h3><span class="metric-status ${statusClass}">${label}</span></div>
-      <p class="live-reading-value">${formatValue(metric, sample[metric])}${display.unit ? `<span>${display.unit}</span>` : ''}</p>
+      <div class="live-reading-heading"><h3>${display.label}${typeof sample[metric] === 'number' && ['airQuality', 'light', 'noise'].includes(metric) ? ' <small>est.</small>' : ''}</h3><span class="metric-status ${statusClass}">${label}</span></div>
+      <p class="live-reading-value">${formatValue(metric, sample[metric])}${sample[metric] === null || sample[metric] === undefined ? '' : display.unit ? `<span>${display.unit}</span>` : ''}</p>
       <div class="reading-meter" aria-hidden="true"><span style="width:${percentage}%;background:${definition.color}"></span></div>
     </article>`;
   }).join('');
@@ -461,7 +469,12 @@ function updateSummary() {
     document.querySelector('#trend-summary').replaceChildren();
     return;
   }
-  const values = samples.map((sample) => Number(sample[selectedMetric]));
+  const availableSamples = samples.filter((sample) => sample[selectedMetric] !== null && sample[selectedMetric] !== undefined);
+  if (!availableSamples.length) {
+    document.querySelector('#trend-summary').innerHTML = '<article class="summary-card"><span>Sensor data</span><strong>Unavailable</strong></article>';
+    return;
+  }
+  const values = availableSamples.map((sample) => Number(sample[selectedMetric]));
   if (samples.every((sample) => typeof sample[selectedMetric] === 'boolean')) {
     const activeCount = samples.filter((sample) => sample[selectedMetric]).length;
     const inactiveCount = samples.length - activeCount;
@@ -494,7 +507,11 @@ function renderTrends() {
     ? { hour: 'numeric', minute: '2-digit' }
     : { month: 'short', day: 'numeric', hour: 'numeric' });
   detailChart.data.labels = samples.map((sample) => tickFormat.format(new Date(sample.ts)));
-  detailChart.data.datasets[0].data = samples.map((sample) => Number(sample[selectedMetric]));
+  detailChart.data.datasets[0].data = samples.map((sample) => (
+    sample[selectedMetric] === null || sample[selectedMetric] === undefined
+      ? null
+      : Number(sample[selectedMetric])
+  ));
   detailChart.data.datasets[0].borderColor = definition.color;
   detailChart.data.datasets[0].backgroundColor = `${definition.color}24`;
   detailChart.data.datasets[0].fill = true;

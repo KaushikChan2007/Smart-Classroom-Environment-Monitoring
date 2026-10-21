@@ -13,15 +13,16 @@ const metricFields = {
   temperature: ['temperature', 'temp'],
   humidity: ['humidity'],
   airQuality: ['airQuality', 'air_quality', 'co2', 'co2ppm'],
-  occupancy: ['occupancy', 'events', 'motionCount', 'motion_count'],
-  light: ['light', 'lightLevel', 'light_level', 'lux'],
-  noise: ['noise', 'noiseLevel', 'noise_level', 'soundLevel', 'sound_level'],
+  occupancy: ['occupancy', 'events', 'motionCount', 'motion_count', 'motion_status'],
+  light: ['light', 'lightLevel', 'light_level', 'lux', 'light_status'],
+  noise: ['noise', 'noiseLevel', 'noise_level', 'soundLevel', 'sound_level', 'sound_status', 'sound_db', 'noise_db', 'soundDb', 'noiseDb'],
 };
 const statusFields = {
   occupancy: 'motion_status',
   light: 'light_status',
   noise: 'sound_status',
 };
+const requiredMetrics = new Set(['temperature', 'humidity']);
 
 export function isFirebaseConfigured() {
   return Object.values(firebaseConfig).every((value) => typeof value === 'string' && value.trim());
@@ -50,12 +51,29 @@ function parseReadings(value) {
   for (const [metric, aliases] of Object.entries(metricFields)) {
     const field = aliases.find((alias) => source[alias] !== undefined);
     const statusField = statusFields[metric];
-    if (field === undefined && statusField && typeof source[statusField] === 'boolean') {
+    if (statusField && typeof source[statusField] === 'boolean' && (field === undefined || field === statusField)) {
       sample[metric] = source[statusField];
       continue;
     }
 
-    const reading = field === undefined ? Number.NaN : Number(source[field]);
+    if (
+      metric === 'noise'
+      && field === statusField
+      && (source[field] === 0 || source[field] === 1 || source[field] === '0' || source[field] === '1')
+    ) {
+      sample[metric] = Number(source[field]) === 1;
+      continue;
+    }
+
+    if (field === undefined) {
+      if (requiredMetrics.has(metric)) {
+        throw new Error(`Firebase reading "${metric}" is missing or is not a number.`);
+      }
+      sample[metric] = null;
+      continue;
+    }
+
+    const reading = Number(source[field]);
     if (!Number.isFinite(reading)) {
       throw new Error(`Firebase reading "${metric}" is missing or is not a number.`);
     }

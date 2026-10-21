@@ -8,7 +8,7 @@ The configured node is the database root (`/`) for the current project. The tren
 3. Set `VITE_FIREBASE_DATABASE_PATH` to the node containing all current readings (`/` means the database root).
 4. Restart the Vite development server after changing environment variables.
 
-The selected node must contain numeric temperature, humidity, and air-quality readings. Occupancy, light, and sound can be numeric readings or boolean sensor states. They can be at the node root or nested under `readings`, `sensors`, `current`, or `data`.
+The selected node must contain numeric temperature and humidity readings. Air quality, occupancy, light, and sound are optional and display as unavailable when missing. Occupancy, light, and sound can be numeric readings or boolean sensor states. They can be at the node root or nested under `readings`, `sensors`, `current`, or `data`.
 
 ```json
 {
@@ -22,7 +22,7 @@ The selected node must contain numeric temperature, humidity, and air-quality re
 }
 ```
 
-Accepted aliases include `temp`, `co2`, `occupancy` or `motion_count`, `light_level` or `lux`, and `noise_level` or `sound_level`. Boolean `motion_status`, `light_status`, and `sound_status` are displayed as sensor states; they are not converted into people counts, lux, or decibels. The timestamp is optional and may be milliseconds, seconds, or a date string.
+Accepted aliases include `temp`, `co2`, `occupancy` or `motion_count`, `light_level` or `lux`, and `noise_level`, `sound_level`, or `sound_db`. Boolean `motion_status`, `light_status`, and `sound_status` are displayed as sensor states. Numeric `sound_db` and other numeric sound readings are displayed as estimated dB; numeric `sound_status` values `0`/`1` are treated as Quiet/Detected. Boolean motion/light states are not converted into counts or lux. The timestamp is optional and may be milliseconds, seconds, or a date string.
 
 When Firebase is not configured, the local simulator remains active. If a configured database path is empty, inaccessible, or has an unsupported shape, the dashboard displays an error and switches to the simulator instead. While Firebase is configured and connecting, readings remain blank until the first valid snapshot arrives.
 
